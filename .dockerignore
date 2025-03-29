@@ -1,0 +1,9 @@
+npm-debug.log
+.DS_Store
+.git
+.gitignore
+docker-compose.yml
+.env
+logs
+tests
+.dev.env
