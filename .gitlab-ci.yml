@@ -1,26 +1,22 @@
-image: docker:latest
-
-services:
-  - docker:dind
-
-variables:
-  DOCKER_DRIVER: overlay2
-  IMAGE_NAME: "$ACR_LOGIN_SERVER/$CI_PROJECT_NAME:$CI_COMMIT_SHORT_SHA"
-
-stages:
-  - build
-  - push
-
-before_script:
-  - echo "$ACR_PASSWORD" | docker login "$ACR_LOGIN_SERVER" -u "$ACR_USERNAME" --password-stdin
-
-build_image:
-  stage: build
-  script:
-    - docker build -t $IMAGE_NAME .
-    - docker images
-
-push_image:
-  stage: push
-  script:
-    - docker push $IMAGE_NAME 
+include:
+  - component: gitlab.fhnw.ch/dps/module/fs25/fs25-group13/fs13-git-components/acr-build-component@dev
+    inputs:
+      acr_login_server: "$ACR_LOGIN_SERVER"
+      acr_username: "$ACR_USERNAME"
+      acr_password: "$ACR_PASSWORD"
+      project_name: "$CI_PROJECT_NAME"
+      image_tag: "$CI_COMMIT_SHORT_SHA"
+      directory: "."
+      
+  - component: gitlab.fhnw.ch/dps/module/fs25/fs25-group13/fs13-git-components/generate-sbom-component@dev
+    inputs:
+      project_name: "$CI_PROJECT_NAME"
+      image_tag: "$CI_COMMIT_SHORT_SHA"
+      
+  - component: gitlab.fhnw.ch/dps/module/fs25/fs25-group13/fs13-git-components/acr-push-component@main
+    inputs:
+      acr_login_server: "$ACR_LOGIN_SERVER"
+      acr_username: "$ACR_USERNAME"
+      acr_password: "$ACR_PASSWORD"
+      project_name: "$CI_PROJECT_NAME"
+      image_tag: "$CI_COMMIT_SHORT_SHA"
