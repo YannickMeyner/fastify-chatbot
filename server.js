@@ -76,7 +76,8 @@ fastify.get("/chat", chatOpts, async function (request, reply) {
 
   const answer = data.choices[0].message.content;
 
-  fastify.log.info(`Request ${request.query.message} answered with ${answer}`);
+  fastify.log.info(`Incoming Request: ${request.query.message}`);
+  fastify.log.info(`Outgoing Answer: ${answer}`);
   fastify.log.info(`Remaining Request on this day ${headers["x-ratelimit-remaining-requests"]}`);
 
   reply.send(answer);

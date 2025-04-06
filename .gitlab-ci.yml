@@ -1,5 +1,5 @@
 include:
-  - component: gitlab.fhnw.ch/dps/module/fs25/fs25-group13/fs13-git-components/acr-build-component@dev
+  - component: gitlab.fhnw.ch/dps/module/fs25/fs25-group13/fs13-git-components/acr-build-component@main
     inputs:
       acr_login_server: "$ACR_LOGIN_SERVER"
       acr_username: "$ACR_USERNAME"
@@ -8,8 +8,16 @@ include:
       image_tag: "$CI_COMMIT_SHORT_SHA"
       directory: "."
       
-  - component: gitlab.fhnw.ch/dps/module/fs25/fs25-group13/fs13-git-components/generate-sbom-component@dev
+  - component: gitlab.fhnw.ch/dps/module/fs25/fs25-group13/fs13-git-components/generate-sbom-component@main
     inputs:
+      acr_login_server: "$ACR_LOGIN_SERVER"
+      project_name: "$CI_PROJECT_NAME"
+      image_tag: "$CI_COMMIT_SHORT_SHA"
+      
+        
+  - component: gitlab.fhnw.ch/dps/module/fs25/fs25-group13/fs13-git-components/scan-cve-component@main
+    inputs:
+      acr_login_server: "$ACR_LOGIN_SERVER"
       project_name: "$CI_PROJECT_NAME"
       image_tag: "$CI_COMMIT_SHORT_SHA"
       
