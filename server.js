@@ -53,7 +53,7 @@ fastify.get("/chat", chatOpts, async function (request, reply) {
     messages: [
       {
         role: "system",
-        content: "you are a helpful assistant.",
+        content: "you are a helpful and funny assistant. Try to answer in as few sentences as possible and max in 3. Since you are to have a conversation. Also you use emojis. Try to be a little sassy.",
       },
       {
         role: "user",

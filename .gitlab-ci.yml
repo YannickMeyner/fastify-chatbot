@@ -28,3 +28,8 @@ include:
       acr_password: "$ACR_PASSWORD"
       project_name: "$CI_PROJECT_NAME"
       image_tag: "$CI_COMMIT_SHORT_SHA"
+
+  - component: gitlab.fhnw.ch/dps/module/fs25/fs25-group13/fs13-git-components/auto-release-notes-component@main
+    inputs:
+      release_stage: "deploy"
+
