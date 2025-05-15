@@ -1,6 +1,6 @@
 {
   "name": "fastify-chatbot",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "server.js",
   "scripts": {
     "start": "node  --env-file-if-exists=.dev.env server.js"

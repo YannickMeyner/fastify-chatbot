@@ -83,6 +83,16 @@ fastify.get("/chat", chatOpts, async function (request, reply) {
   reply.send(answer);
 });
 
+// Basic liveness check
+fastify.get("/healthz", async (request, reply) => {
+  reply.code(200).send({ status: "alive" });
+});
+
+// Basic readiness check — same as above for now
+fastify.get("/readyz", async (request, reply) => {
+  reply.code(200).send({ status: "ready" });
+});
+
 // Run the server!
 fastify.listen(
   { port: process.env.FASTIFY_PORT || 3000, host: "0.0.0.0" },
